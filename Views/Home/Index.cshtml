@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="jumbotron border-dark shadow-sm"  style="background-color: #1a1aff;">
+    <h1 class="display-4 text-center text-lg-center">Customer Relationship Manager</h1>
+    <hr class="my-4" />
+    <form method="get" class="text-center p-4">
+        <button class="btn btn-dark btn-lg shadow-sm p-3" type="submit" asp-controller="Customer" asp-action="Index">Customer List</button>
+        <button class="btn btn-dark btn-lg shadow-sm p-3" type="submit" asp-controller="BusinessLead" asp-action="Index">New Leads</button>
+    </form>
+</div>
