@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using CapstoneCRM.Data;
 using CapstoneCRM.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CapstoneCRM.Controllers
 {
@@ -21,6 +22,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Customer
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -96,6 +98,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Customer/Details/5
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -116,6 +119,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Customer/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public IActionResult Create()
         {
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Name");
@@ -142,6 +146,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Customer/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -197,6 +202,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Customer/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

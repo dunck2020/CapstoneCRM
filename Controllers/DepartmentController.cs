@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CapstoneCRM.Data;
 using CapstoneCRM.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CapstoneCRM.Controllers
 {
@@ -20,12 +21,14 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Department
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Departments.ToListAsync());
         }
 
         // GET: Department/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Department/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +58,7 @@ namespace CapstoneCRM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create([Bind("Id,Name")] Department department)
         {
             if (ModelState.IsValid)
@@ -66,6 +71,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Department/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +92,7 @@ namespace CapstoneCRM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Department department)
         {
             if (id != department.Id)
@@ -117,6 +124,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: Department/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +145,7 @@ namespace CapstoneCRM.Controllers
         // POST: Department/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var department = await _context.Departments.FindAsync(id);

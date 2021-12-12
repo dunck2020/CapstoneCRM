@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CapstoneCRM.Data;
 using CapstoneCRM.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CapstoneCRM.Controllers
 {
@@ -20,12 +21,14 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: CustomerType
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.CustomerTypes.ToListAsync());
         }
 
         // GET: CustomerType/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: CustomerType/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +70,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: CustomerType/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +122,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: CustomerType/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

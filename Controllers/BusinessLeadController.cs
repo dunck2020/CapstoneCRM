@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CapstoneCRM.Data;
 using CapstoneCRM.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CapstoneCRM.Controllers
 {
@@ -20,6 +21,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: BusinessLead
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> Index()
         {
             var cRMDbContext = _context.BusinessLeads.Include(b => b.AssignedEmployee);
@@ -27,6 +29,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: BusinessLead/Details/5
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +49,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: BusinessLead/Create
+        [Authorize(Roles = "Administrator,Manager,User")]
         public IActionResult Create()
         {
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Name");
@@ -70,6 +74,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: BusinessLead/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,6 +128,7 @@ namespace CapstoneCRM.Controllers
         }
 
         // GET: BusinessLead/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
